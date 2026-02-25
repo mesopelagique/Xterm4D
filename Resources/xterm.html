@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xterm.js — 4D Terminal</title>
+
+  <!-- xterm.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
+
+  <!-- addons -->
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.min.js"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #1e1e1e;
+    }
+
+    #terminal-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Make the xterm viewport fill the container */
+    .xterm {
+      height: 100%;
+    }
+
+    /* Hide the native scrollbar forced by xterm.js internal calculating */
+    .xterm-viewport {
+      overflow-y: hidden !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="terminal-container"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // ── Terminal setup ──────────────────────────────────────────────
+      const term = new Terminal({
+        cursorBlink: true,
+        fontSize: 14,
+        fontFamily: "'MesloLGS NF', 'Menlo', 'DejaVu Sans Mono', 'Consolas', monospace",
+        theme: {
+          background: "#1e1e1e",
+          foreground: "#d4d4d4",
+          cursor: "#aeafad",
+          cursorAccent: "#1e1e1e",
+          selectionBackground: "rgba(255,255,255,0.25)",
+          black: "#000000",
+          red: "#cd3131",
+          green: "#0dbc79",
+          yellow: "#e5e510",
+          blue: "#2472c8",
+          magenta: "#bc3fbc",
+          cyan: "#11a8cd",
+          white: "#e5e5e5",
+          brightBlack: "#666666",
+          brightRed: "#f14c4c",
+          brightGreen: "#23d18b",
+          brightYellow: "#f5f543",
+          brightBlue: "#3b8eea",
+          brightMagenta: "#d670d6",
+          brightCyan: "#29b8db",
+          brightWhite: "#ffffff"
+        },
+        allowProposedApi: true,
+        scrollback: 5000
+      });
+
+      // ── Addons ──────────────────────────────────────────────────────
+      const fitAddon = new FitAddon.FitAddon();
+      term.loadAddon(fitAddon);
+
+      const webLinksAddon = new WebLinksAddon.WebLinksAddon();
+      term.loadAddon(webLinksAddon);
+
+      // ── Mount ───────────────────────────────────────────────────────
+      const container = document.getElementById("terminal-container");
+      term.open(container);
+      fitAddon.fit();
+      term.focus();
+
+      // Re-fit when the Web Area is resized
+      const ro = new ResizeObserver(() => {
+        try { fitAddon.fit(); } catch (_) { }
+      });
+      ro.observe(container);
+
+      // ── 4D  ↔  JavaScript bridge ────────────────────────────────────
+      //
+      //  From JS → 4D  (the Web Area exposes a `$4d` proxy object)
+      //    • $4d.onTerminalInput(data : Text)
+      //    • $4d.onTerminalResize(cols : Integer ; rows : Integer)
+      //
+      //  From 4D → JS  (call via  WA EXECUTE JAVASCRIPT FUNCTION)
+      //    • writeToTerminal(data)        — write PTY output to the terminal
+      //    • clearTerminal()              — clear the screen
+      //    • getTerminalSize() → {cols, rows}
+      //    • fitTerminal()                — recalculate size after Web Area resize
+      //    • setFontSize(size)            — change font on the fly
+      //    • dispose()                    — clean up before closing
+
+      // User types → forward to 4D (async — $4d calls return promises)
+      term.onData(data => {
+        console.info("data event:", data);
+        try {
+          if (typeof $4d !== "undefined" && $4d.onTerminalInput) {
+            //console.info("4D bridge available: sending terminal input");
+            $4d.onTerminalInput(data);
+            //console.info("4D bridge available: terminal input sent");
+          } else {
+            console.warn("4D bridge not available: cannot send terminal input");
+          }
+        } catch (e) {
+          console.warn("onTerminalInput error:", e);
+        }
+      });
+
+      // Terminal resized → tell 4D the new dimensions
+      term.onResize(function (size) {
+        try {
+          if (typeof $4d !== "undefined" && $4d.onTerminalResize) {
+            $4d.onTerminalResize(size.cols, size.rows);
+          } else {
+            console.warn("4D bridge not available: cannot send terminal resize");
+          }
+        } catch (e) {
+          console.warn("onTerminalResize error:", e);
+        }
+      });
+
+      /*term.onKey((key, ev) => {
+        console.info("Key event:", key, ev);
+        return;
+        // Intercept Ctrl+V for paste (since xterm.js doesn't handle it by default)
+        if (ev.ctrlKey && ev.key === "v") {
+          navigator.clipboard.readText().then(text => {
+            term.paste(text);
+          }).catch(err => {
+            console.warn("Clipboard read failed:", err);
+          });
+          ev.preventDefault();
+        }
+      });*/
+
+      // ── Functions exposed to 4D ─────────────────────────────────────
+
+      /** Write data (PTY output) into the terminal */
+      window.writeToTerminal = function (data) {
+        term.write(data);
+      };
+
+      /** Write Base64 encoded raw data into the terminal */
+      window.writeBase64ToTerminal = function (base64Data) {
+        const binaryString = atob(base64Data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        term.write(bytes);
+      };
+
+      /** Clear the terminal screen */
+      window.clearTerminal = function () {
+        term.clear();
+      };
+
+      /** Return current grid size as a JSON string */
+      window.getTerminalSize = function () {
+        return JSON.stringify({ cols: term.cols, rows: term.rows });
+      };
+
+      /** Force a fit recalculation */
+      window.fitTerminal = function () {
+        fitAddon.fit();
+      };
+
+      /** Change font size dynamically */
+      window.setFontSize = function (size) {
+        term.options.fontSize = size;
+        fitAddon.fit();
+      };
+
+      /** Focus the terminal programmatically */
+      window.focusTerminal = function () {
+        term.focus();
+      };
+
+      /** Dispose of the terminal (call before closing) */
+      window.dispose = function () {
+        ro.disconnect();
+        term.dispose();
+      };
+    })();
+  </script>
+</body>
+
+</html>

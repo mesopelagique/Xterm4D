@@ -1,0 +1,46 @@
+{
+  "name": "PTY4DPlugin",
+  "id": 15000,
+  "commands": [
+    {
+      "theme": "pty",
+      "syntax": "PTY Create(&T;&L;&L;&T):L",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Write(&L;&T):L",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Read(&L;&L;&L):T",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Set window size(&L;&L;&L):L",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Close(&L):L",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Get status(&L):J",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY Send signal(&L;&L):L",
+      "threadSafe": true
+    },
+    {
+      "theme": "PTY",
+      "syntax": "PTY List sessions():C",
+      "threadSafe": true
+    }
+  ]
+}

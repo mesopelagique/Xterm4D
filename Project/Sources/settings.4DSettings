@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><preferences stamp="8">
+	<com.4d>
+		<database>
+			<cache flush_buffer_delay="15" size_fixed="32" size_maximum="100" size_reserved="128"/>
+			<misc non_blocking_printing="true" standard_xpath="true" use_ast_interpreter="true"/>
+		</database>
+		<interface>
+			<misc/>
+		</interface>
+		<server>
+			<misc/>
+			<network>
+				<options use_legacy_network_layer="true"/>
+				<client_server use_encryption="false"/>
+			</network>
+		</server>
+		<general component_classStore_name="xterm">
+			<mover always_display_dialog="2"/>
+		</general>
+		<web>
+			<standalone_server>
+				<options>
+					<web_processes timeout_for_inactives="5"/>
+					<filters allow_4dsync_urls="true"/>
+					<cache use_4d_web_cache="false"/>
+				</options>
+				<misc/>
+				<configuration automatic_session_management="true" session_mode="2"/>
+			</standalone_server>
+			<remote>
+				<options>
+					<web_processes timeout_for_inactives="5"/>
+					<filters allow_4dsync_urls="true"/>
+					<cache use_4d_web_cache="false"/>
+				</options>
+				<misc/>
+				<configuration automatic_session_management="true" session_mode="2"/>
+			</remote>
+		</web>
+		<deployment>
+			<options/>
+		</deployment>
+		<compiler>
+			<options compilation_path="1" syntax_file="true"/>
+		</compiler>
+	</com.4d>
+</preferences>

@@ -1,0 +1,12 @@
+{
+	"tests": {
+		"methods": [
+			"test_PTY_class",
+			"test_xterm_form"
+		],
+		"forms": [
+			"xterm"
+		]
+	},
+	"trash": {}
+}

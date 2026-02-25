@@ -1,0 +1,60 @@
+{
+	"$4d": {
+		"version": "1",
+		"kind": "form"
+	},
+	"windowSizingX": "variable",
+	"windowSizingY": "variable",
+	"windowMinWidth": 0,
+	"windowMinHeight": 0,
+	"windowMaxWidth": 32767,
+	"windowMaxHeight": 32767,
+	"rightMargin": 20,
+	"bottomMargin": 20,
+	"events": [
+		"onLoad",
+		"onDrop",
+		"onPluginArea",
+		"onDragOver",
+		"onUnload",
+		"onResize",
+		"onBeginDragOver"
+	],
+	"windowTitle": "xterm.4d",
+	"pages": [
+		{
+			"objects": {}
+		},
+		{
+			"objects": {
+				"xterm": {
+					"type": "webArea",
+					"left": 17,
+					"top": 19,
+					"width": 1244,
+					"height": 999,
+					"focusable": true,
+					"enterable": true,
+					"events": [
+						"onLoad",
+						"onUnload"
+					],
+					"webEngine": "embedded",
+					"methodsAccessibility": "all",
+					"sizingX": "grow",
+					"sizingY": "grow",
+					"method": "ObjectMethods/xterm.4dm"
+				}
+			}
+		}
+	],
+	"geometryStamp": 28,
+	"method": "method.4dm",
+	"editor": {
+		"activeView": "View 1",
+		"defaultView": "View 1",
+		"views": {
+			"View 1": {}
+		}
+	}
+}

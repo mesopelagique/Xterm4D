@@ -1,0 +1,368 @@
+{
+	"_method_": {},
+	"cs.xterm": {
+		"PTYStatus": {
+			"new()": {
+				"Syntax": "**.new**( *obj* : Object )",
+				"Params": [
+					[
+						"obj",
+						"Object",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		},
+		"PTY": {
+			"new()": {
+				"Syntax": "**.new**( *shell* : Text; *cols* : Integer; *rows* : Integer; *cwd* : Text )",
+				"Params": [
+					[
+						"shell",
+						"Text",
+						"->"
+					],
+					[
+						"cols",
+						"Integer",
+						"->"
+					],
+					[
+						"rows",
+						"Integer",
+						"->"
+					],
+					[
+						"cwd",
+						"Text",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		},
+		"XTerm": {
+			"new()": {
+				"Syntax": "**.new**( *webArea* : Text; *shell* : Text; *cols* : Integer; *rows* : Integer; *workingDirectory* : 4D.Folder )",
+				"Params": [
+					[
+						"webArea",
+						"Text",
+						"->"
+					],
+					[
+						"shell",
+						"Text",
+						"->"
+					],
+					[
+						"cols",
+						"Integer",
+						"->"
+					],
+					[
+						"rows",
+						"Integer",
+						"->"
+					],
+					[
+						"workingDirectory",
+						"4D.Folder",
+						"->"
+					]
+				],
+				"Summary": ""
+			}
+		}
+	},
+	"PTYStatus": {
+		"exitCode": {
+			"Syntax": "exitCode : Integer"
+		},
+		"pid": {
+			"Syntax": "pid : Integer"
+		},
+		"running": {
+			"Syntax": "running : Boolean"
+		}
+	},
+	"PTY": {
+		"interrupt()": {
+			"Syntax": "**.interrupt**() : Integer",
+			"Params": [
+				[
+					"",
+					"Integer",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"sendSignal()": {
+			"Syntax": "**.sendSignal**( *signal* : Integer ) : Integer",
+			"Params": [
+				[
+					"signal",
+					"Integer",
+					"->"
+				],
+				[
+					"",
+					"Integer",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"resize()": {
+			"Syntax": "**.resize**( *cols* : Integer; *rows* : Integer ) : Integer",
+			"Params": [
+				[
+					"cols",
+					"Integer",
+					"->"
+				],
+				[
+					"rows",
+					"Integer",
+					"->"
+				],
+				[
+					"",
+					"Integer",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"write()": {
+			"Syntax": "**.write**( *text* : Text ) : cs.xterm.PTY",
+			"Params": [
+				[
+					"text",
+					"Text",
+					"->"
+				],
+				[
+					"",
+					"cs.xterm.PTY",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"read()": {
+			"Syntax": "**.read**( *bufferSize* : Integer; *timeoutMs* : Integer ) : Text",
+			"Params": [
+				[
+					"bufferSize",
+					"Integer",
+					"->"
+				],
+				[
+					"timeoutMs",
+					"Integer",
+					"->"
+				],
+				[
+					"",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"writeLine()": {
+			"Syntax": "**.writeLine**( *text* : Text ) : cs.xterm.PTY",
+			"Params": [
+				[
+					"text",
+					"Text",
+					"->"
+				],
+				[
+					"",
+					"cs.xterm.PTY",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"close()": {
+			"Syntax": "**.close**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"readAll()": {
+			"Syntax": "**.readAll**( *timeoutMs* : Integer ) : Text",
+			"Params": [
+				[
+					"timeoutMs",
+					"Integer",
+					"->"
+				],
+				[
+					"",
+					"Text",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"getStatus()": {
+			"Syntax": "**.getStatus**() : cs.xterm.PTYStatus",
+			"Params": [
+				[
+					"",
+					"cs.xterm.PTYStatus",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"get isOpen()": {
+			"Syntax": "**.get isOpen**() : Boolean",
+			"Params": [
+				[
+					"",
+					"Boolean",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"rows": {
+			"Syntax": "rows : Integer"
+		},
+		"shell": {
+			"Syntax": "shell : Text"
+		},
+		"cols": {
+			"Syntax": "cols : Integer"
+		},
+		"id": {
+			"Syntax": "id : Integer"
+		}
+	},
+	"XTerm": {
+		"fit()": {
+			"Syntax": "**.fit**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"close()": {
+			"Syntax": "**.close**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"getSize()": {
+			"Syntax": "**.getSize**() : Object",
+			"Params": [
+				[
+					"",
+					"Object",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"setFontSize()": {
+			"Syntax": "**.setFontSize**( *size* : Integer )",
+			"Params": [
+				[
+					"size",
+					"Integer",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"focus()": {
+			"Syntax": "**.focus**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"interrupt()": {
+			"Syntax": "**.interrupt**() : Integer",
+			"Params": [
+				[
+					"",
+					"Integer",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"writeLine()": {
+			"Syntax": "**.writeLine**( *text* : Text ) : cs.xterm.XTerm",
+			"Params": [
+				[
+					"text",
+					"Text",
+					"->"
+				],
+				[
+					"",
+					"cs.xterm.XTerm",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"write()": {
+			"Syntax": "**.write**( *text* : Text ) : cs.xterm.XTerm",
+			"Params": [
+				[
+					"text",
+					"Text",
+					"->"
+				],
+				[
+					"",
+					"cs.xterm.XTerm",
+					"<-"
+				]
+			],
+			"Summary": ""
+		},
+		"clearContents()": {
+			"Syntax": "**.clearContents**()",
+			"Params": [],
+			"Summary": ""
+		},
+		"onTerminalResize()": {
+			"Syntax": "**.onTerminalResize**( *cols* : Integer; *rows* : Integer )",
+			"Params": [
+				[
+					"cols",
+					"Integer",
+					"->"
+				],
+				[
+					"rows",
+					"Integer",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"onTerminalInput()": {
+			"Syntax": "**.onTerminalInput**( *data* : Text )",
+			"Params": [
+				[
+					"data",
+					"Text",
+					"->"
+				]
+			],
+			"Summary": ""
+		},
+		"webArea": {
+			"Syntax": "webArea : Text"
+		},
+		"pty": {
+			"Syntax": "pty : cs.xterm.PTY"
+		}
+	}
+}
