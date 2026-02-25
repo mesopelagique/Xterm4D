@@ -2,7 +2,7 @@
 
 Xterm4D is an experimental personal project that demonstrates how to display terminal output using [Xterm.js](https://xtermjs.org/) embedded inside a 4D Web Area component. It provides a basic proof-of-concept for integrating a web-browser-powered terminal emulator GUI into 4D windowing structures. Under the hood, it uses a pseudoterminal (PTY) session to act as the backend engine.
 
-> **Disclaimer**: This is a personal project intended for testing and experimentation. Use at your own risk.
+> **Disclaimer**: This is a personal project intended for testing and experimentation. Use at your own risk. The primary goal is to provide a working terminal block from within 4D to launch and interact with AI CLI tools like Claude, Codex, Gemini, or Copilot.
 
 ## Web Area Integration with Xterm.js
 
