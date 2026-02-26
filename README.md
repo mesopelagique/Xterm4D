@@ -4,6 +4,8 @@ Xterm4D is an experimental personal project that demonstrates how to display ter
 
 > **Disclaimer**: This is a personal project intended for testing and experimentation. Use at your own risk. The primary goal is to provide a working terminal block from within 4D to launch and interact with AI CLI tools like Claude, Codex, Gemini, or Copilot.
 
+https://github.com/user-attachments/assets/c45a91bb-4faa-4deb-a477-d9885d8dd8b4
+
 ## Web Area Integration with Xterm.js
 
 To help integrate `xterm.js`, the project provides the `cs.xterm.Xterm` class, which serves as a simple controller to bridge the low-level PTY session with the Web Area.
